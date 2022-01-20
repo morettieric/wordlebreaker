@@ -1,18 +1,21 @@
 def imprimirdb():
-    print(leitura[1],leitura[2],leitura[3])
+    print(leitura[0])
     print('DB: ',len(leitura),'. Deseja imprimir?')
     
     quero = input()
     if quero == 's':
-        x=0
-        while quero == 's':
-            for i in range (0,10):
-                if (i+x) > len(leitura):
-                    break
-                print (leitura[i+x])
-            x=x+10
-            print ('Deseja imprimir mais?',x,'/',len(leitura))
-            quero = input ()
+        if len(leitura)<10:
+            print (leitura)
+        else:
+            x=0
+            while quero == 's':
+                for i in range (0,10):
+                    if (i+x) > len(leitura):
+                        break
+                    print (leitura[i+x])
+                x=x+10
+                print ('Deseja imprimir mais?',x,'/',len(leitura))
+                quero = input ()
 
         
 #sgb-words
