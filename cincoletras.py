@@ -44,7 +44,7 @@ def salvar_verde(pos,letra):
         remover = posicoes[x]
         leitura.pop(remover)
         
-def salvar_amarela(letra):
+def salvar_amarela(pos, letra):
     posicoes = []
     for x in range(len(leitura)):
         contem = 0
@@ -57,6 +57,16 @@ def salvar_amarela(letra):
     for x in range(len(posicoes)):
         remover = posicoes[x]
         leitura.pop(remover)
+
+    posicoes = []
+    for x in range(len(leitura)):
+        if leitura[x][pos] == letra:
+            posicoes.insert(0,x)
+    
+    for x in range(len(posicoes)):
+        remover = posicoes[x]
+        leitura.pop(remover)
+    
         
 #sgb-words
 with open("sgb-words.txt","r") as arquivo:
@@ -71,22 +81,41 @@ vd 3 a
 pt l
 """
 while entrada != 'sair':    
-    entrada = input('Digite o comando: am [letra] / vd [pos] [letra] / pt [letra] \n')
-    entrada_limpa = entrada.split()
-    if entrada_limpa[0] == 'am':
-        #amarelo
-        salvar_amarela(entrada_limpa[1])
-        imprimirdb()
-    elif entrada_limpa[0] == 'vd':
-        #verde
-        salvar_verde(int(entrada_limpa[1]),entrada_limpa[2])
-        imprimirdb()
-    elif entrada_limpa[0] == 'pt':
-        #preto
-        remover_pretas(entrada_limpa[1])
-        imprimirdb()
+    entrada = input('Digite o comando: am [pos] [letra] / vd [pos] [letra] / pt [letra] / im: ')
+    if entrada != '':
+        entrada_limpa = entrada.split()
+        
+        if entrada_limpa[0] == 'am':
+            #amarelo
+            if len(entrada_limpa) == 3:
+                salvar_amarela(int(entrada_limpa[1])-1,entrada_limpa[2])
+                print('Palavras filtradas: ',len(leitura),'. Primeira palavra: ',leitura[0],'.')
+            else:
+                print('Entrada Inválida, digite novamente')
+
+        elif entrada_limpa[0] == 'vd':
+            #verde
+            if len(entrada_limpa) == 3:
+                salvar_verde(int(entrada_limpa[1])-1,entrada_limpa[2])
+                print('Palavras filtradas: ',len(leitura),'. Primeira palavra: ',leitura[0],'.')
+            else:
+                print('Entrada Inválida, digite novamente')
+
+        elif entrada_limpa[0] == 'pt':
+            #preto
+            if entrada_limpa[1] != '':
+                remover_pretas(entrada_limpa[1])
+                print('Palavras filtradas: ',len(leitura),'. Primeira palavra: ',leitura[0],'.')
+            else:
+                printf('Entrada Inválida, digite novamente')
+
+        elif entrada_limpa[0] == 'im':
+            imprimirdb()
+
+        else:
+            print ('Entrada Inválida, tente novamente.')
     else:
-        print ('Entrada Inválida, tente novamente.\n')
+        print('Entrava vzia, tente novamente')
     """
     try:
             posicao = int(entrada)
