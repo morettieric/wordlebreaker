@@ -44,7 +44,19 @@ def salvar_verde(pos,letra):
         remover = posicoes[x]
         leitura.pop(remover)
         
-#def salvar_amarela(letra)
+def salvar_amarela(letra):
+    posicoes = []
+    for x in range(len(leitura)):
+        contem = 0
+        for i in range(0,5):
+            if leitura[x][i] == letra:
+                contem = contem+1
+        if contem == 0:
+            posicoes.insert(0,x)
+            
+    for x in range(len(posicoes)):
+        remover = posicoes[x]
+        leitura.pop(remover)
         
 #sgb-words
 with open("sgb-words.txt","r") as arquivo:
@@ -63,10 +75,11 @@ while entrada != 'sair':
     entrada_limpa = entrada.split()
     if entrada_limpa[0] == 'am':
         #amarelo
-        print('amarelow')
+        salvar_amarela(entrada_limpa[1])
+        imprimirdb()
     elif entrada_limpa[0] == 'vd':
         #verde
-        salvar_verde(entrada_limpa[1],entrada_limpa[2])
+        salvar_verde(int(entrada_limpa[1]),entrada_limpa[2])
         imprimirdb()
     elif entrada_limpa[0] == 'pt':
         #preto
